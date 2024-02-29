@@ -1,0 +1,51 @@
+
+
+
+
+<section class="demo mx-auto py-3 bg-main-light" *ngIf="cardData;else msg">
+<div class="d-flex align-items-center justify-content-between p-3">
+    <div>
+        <h1 class="h2 fw-bold">Cart Shope</h1>
+
+        <h5 class="fw-medium mt-2">total price: <span class="text-main">{{cardData.totalCartPrice|currency:' EGP '}}</span></h5>
+    </div>
+    <div>
+        <button  [routerLink]="['/payment',cardData._id]" class="btn-lg btn d-block ms-auto btn-primary">Check Out <img src="./assets/images/visa-1.svg" alt=""></button>
+        <h5 class="fw-medium mt-2">total numbers of items : <span class="text-main">{{cardData.products.length}}</span></h5>
+    </div>
+</div>
+
+<div>
+    <div class="row border-bottom border-1" *ngFor="let item of cardData.products ">
+        <div class="col-md-2">
+
+            <img [src]="item.product.imageCover" class="w-100" alt="">
+        </div>
+        <div class="col-md-10">
+
+            <div class="d-flex justify-content-between p-3">
+                <div class="  pt-5 ">
+                    <h5>{{item.product.title}}</h5>
+                    <h6 class="text-main">{{item.price|currency:' EGP '}}</h6>
+                    <button class="btn text-danger m-0 p-0" (click)="deleteItem(item.product._id)"><i class="fas fa-trash-can"></i> remove</button>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button (click)="updateCount(item.product._id,(item.count)+1 , btn1,btn2)" class="btn-sm btn btn-outline-success" #btn1> + </button>
+                    <span class="mx-4 fw-bold">{{item.count}}</span>
+                    <button (click)="updateCount(item.product._id,(item.count)-1 , btn1,btn2)" class="btn-sm btn btn-outline-success" #btn2> - </button>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+</div>
+
+<div class="mx-auto but">
+<button class="text-capitalize d-block mx-aut my-3 btn btn-outline-danger" (click)="deleteCart()">clear your cart</button>
+
+</div>
+</section>
+
+<ng-template #msg>
+<h2 class="text-center">Your Cart Is Empty...</h2>
+</ng-template>

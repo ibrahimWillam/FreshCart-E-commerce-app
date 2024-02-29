@@ -1,0 +1,29 @@
+<section>
+
+    <input type="search" class="form-control w-50 mx-auto my-5" placeholder="search...." [(ngModel)]="searchInput">
+
+    <h2 class="mb-3">products : </h2>
+       <div class="row gx-4 g-4">
+        <div class="col-md-4 col-lg-3 " *ngFor="let item of products | search:searchInput">
+            <div class="product">
+
+                <i  *ngIf="!wishList.includes($any(item._id))" (click)=" addFav(item._id)" class="fa-regular fa-heart fa-lg heart cursor-pointer"></i>
+                <i *ngIf="wishList.includes($any(item._id))" (click)=" deleteItem(item._id)" class="fa-solid fa-heart fa-lg heartred cursor-pointer"></i>
+              
+
+                <div class=" p-2 cursor-pointer" [routerLink]="['/details',item._id]">
+                    <img [src]="item.imageCover" class="w-100" [alt]="item.title">
+              
+                    <h3 class="h6">{{item.category.name}}</h3>
+                    <h4 class="small ">({{item.title| termText:2}})</h4>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span>{{item.price +' EGP'}}</span>
+                        <div><i class="fas fa-star rating-color"></i> <span class="text-muted">{{item.ratingsAverage}}</span></div>
+                    </div>
+                </div>
+                <button class="btn-main w-100" #btnAdd (click)="addCart(item._id,btnAdd)" >Add</button>
+            </div>
+    
+        </div>
+       </div> 
+</section>
